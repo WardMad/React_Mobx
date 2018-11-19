@@ -4,7 +4,7 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+  height: 30vmin;
 }
 
 .App-header {
@@ -13,9 +13,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 .App-link {
@@ -29,4 +29,94 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+button{  margin: 10px;
+
+}
+
+li{
+  background-color: #282a2c;
+   margin:20px;
+   padding:8px;
+   border :1px solid dodgerblue; 
+   border-radius:4px;
+}
+ input[type=checkbox]:checked + label {
+   color:red;
+   text-decoration: line-through;
+} 
+
+.edit  {
+ 
+  color: black;
+  border-style:none;
+}
+
+.edit:hover {
+  border-style:none;
+  background-color: rgb(42, 136, 243);
+  color: white;
+  font-weight: bold;
+   border-radius: 15px;
+    box-shadow: 8px 10px 8px #afadad;
+}
+
+.delete{
+        color:rgba(41, 39, 39, 0.938);
+}
+
+.delete:hover{
+       border-radius:3px;
+       cursor: pointer;
+       color:red;
+       border-color:rgb(243, 98, 98);    
+}
+input{
+
+height:20px;
+border-radius: 5px;
+
+}
+
+#add{
+
+    /* background-color: rgb(35, 48, 233);  */
+    border: none;
+    margin:10px;
+    color:whitesmoke;
+    background-color: #282c34;
+    padding: 8px ;
+    text-align: center;
+    font-size: 15px;
+    margin: 10px ;
+    transition-duration: 0.s;
+    cursor: pointer;
+    border-radius:4px; 
+}
+#add:hover{
+    color: whitesmoke; 
+    border: 1.5px solid rgb(30, 129, 221);
+}
+
+#btnE{
+
+    margin:10px;
+    color:whitesmoke;
+    background-color: rgb(5, 94, 177);
+    padding: 10px ;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px ;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    border: 3px solid ;
+    border-radius:2px; 
+
+}
+
+#btnE:hover{
+    color: whitesmoke; 
+    border: 2px solid rgb(30, 129, 221);
+    
 }
