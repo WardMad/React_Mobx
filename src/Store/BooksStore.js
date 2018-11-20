@@ -1,28 +1,22 @@
+import React from "react";
 import { observable, computed, action, runInAction } from 'mobx';
+import UniqueId from 'react-html-id'
 
-
-class BooksStore {
+class BooksStore extends React.Component {
+    constructor() {
+        super()
+        UniqueId.enableUniqueIds(this);
+    }
     @observable books = [
-        // {
-        //     "id": 1,
-        //     "description": "Get out of bed",
-        //     "deadline": "2019-09-11",
-        //     "done": true
-        // },
-        // {
-        //     "id": 2,
-        //     "description": "Brush teeth",
-        //     "deadline": "2022-09-10",
-        //     "done": false
-        // },
-        // {
-        //     "id": 3,
-        //     "description": "Eat breakfast",
-        //     "deadline": "2018-12-09",
-        //     "done": false
-        // }
+        {
+            "id": this.nextUniqueId(),
+            "description": "Edgar Alan Po",
+            "deadline": "2019-09-11",
+            "done": true
+        }
     ];
     @observable todo = [];
+
     @observable elem = []
     //callback
     @observable posts = {
@@ -31,7 +25,9 @@ class BooksStore {
     }
 
     @action addBook = (task) => {
-        this.todo.push(task)
+        this.todo.push(task + '' + this.nextUniqueId())
+        console.log(this.nextUniqueId())
+
     }
     @action deleteBook = (id) => {
 
