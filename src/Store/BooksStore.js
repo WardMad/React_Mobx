@@ -21,11 +21,11 @@ class BooksStore extends React.Component {
     //callback
     @observable posts = {
         data: [],
-        satatus: ['loading']
+        status: ['loading']
     }
 
     @action addBook = (task) => {
-        this.todo.push(task + '' + this.nextUniqueId())
+        this.todo.push(task)
         console.log(this.nextUniqueId())
 
     }
@@ -53,10 +53,11 @@ class BooksStore extends React.Component {
     }
 
     @action async addPosts() {
-        this.addPosts.data = [];
+        this.posts.data = [];
         this.posts.status = 'loading';
         try {
             const posts = await this.getPosts();
+            console.log(posts)
             runInAction(() => {
                 this.posts.data = posts;
                 this.posts.status = 'done';
@@ -65,27 +66,32 @@ class BooksStore extends React.Component {
             runInAction(() => {
                 this.posts.status = 'error)';
             })
+
         }
     }
 
-    // @action inputPosts(data) {
-    //     return fetch('https://jsonplaceholder.typicode.com/posts', {
-    //         method: 'POST',
-    //         body: JSON.stringify(data),
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8"
-    //         }
-    //     })
-    //         .then(response => response.json())
-    //         .then(json => {
-    //             this.posts.data.push(data)
-    //         })
-    // }
+    @action inputPosts(data) {
+
+        return fetch('https://hyf-react-api.herokuapp.com/todos/create', {
+            method: 'POST',
+            body: JSON.stringify({ description: data, deadline: new Date() }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => response.json())
+            .then(json => {
+                runInAction(() => {
+                    this.posts.data.push(json)
+                })
+            })
+
+    }
 
     getPosts() {
 
         return fetch('https://hyf-react-api.herokuapp.com/todos')
             .then(response => response.json())
+
     }
 }
 
