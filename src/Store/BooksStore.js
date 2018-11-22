@@ -5,16 +5,16 @@ import UniqueId from 'react-html-id'
 class BooksStore extends React.Component {
     constructor() {
         super()
-        UniqueId.enableUniqueIds(this);
+        // UniqueId.enableUniqueIds(this);
     }
-    @observable books = [
-        {
-            "id": this.nextUniqueId(),
-            "description": "Edgar Alan Po",
-            "deadline": "2019-09-11",
-            "done": true
-        }
-    ];
+    // @observable books = [
+    //     {
+    //         "id": this.nextUniqueId(),
+    //         "description": "Edgar Alan Po",
+    //         "deadline": "2019-09-11",
+    //         "done": true
+    //     }
+    // ];
     @observable todo = [];
 
     @observable elem = []
@@ -24,11 +24,10 @@ class BooksStore extends React.Component {
         status: ['loading']
     }
 
-    @action addBook = (task) => {
-        this.todo.push(task)
-        console.log(this.nextUniqueId())
-
-    }
+    // @action addBook = (task) => {
+    //     this.todo.push(task)
+   
+    // }
     @action deleteBook = (id) => {
 
         this.todo.forEach((todo, index) => {
@@ -52,7 +51,7 @@ class BooksStore extends React.Component {
         return this.todo.length;
     }
 
-    @action async addPosts() {
+    @action async showPosts() {
         this.posts.data = [];
         this.posts.status = 'loading';
         try {
@@ -70,8 +69,8 @@ class BooksStore extends React.Component {
         }
     }
 
-    @action inputPosts(data) {
-
+    @action addPosts(data) {
+console.log(JSON.stringify(data))
         return fetch('https://hyf-react-api.herokuapp.com/todos/create', {
             method: 'POST',
             body: JSON.stringify({ description: data, deadline: new Date() }),

@@ -19,12 +19,15 @@ class TodoLists extends React.Component {
         // }
     }
     handleCheckbox = (e) => {
-
-        this.props.BooksStore.changeBox(e.target.value)
+ this.props.BooksStore.changeBox(e.target.value)
+    }
+    handleDelete = (e) => {
+        this.props.BooksStore.deleteBook()
     }
 
-
     render() {
+
+        const remove = <button className='delete' onClick={this.handleDelete} >X</button>
         const checkbox = <input type='checkbox' onChange={this.handleCheckbox} />
         const { id, description, deadline, done, changeEv } = this.props;
         console.log(id)
@@ -33,7 +36,7 @@ class TodoLists extends React.Component {
             <div className='list'>
                 <ul>
 
-                    <li>{checkbox} <label> {id} {description} {deadline} {done} </label> <Edit value={description} />  </li>
+                    <li>{checkbox} <label> {id} {description} {deadline} {done}  </label> {remove}<Edit value={description} />  </li>
                     <input type='text' onChange={changeEv} defaultValue={description} />
 
                 </ul>
