@@ -5,30 +5,29 @@ import UniqueId from 'react-html-id'
 class BooksStore extends React.Component {
     constructor() {
         super()
-        UniqueId.enableUniqueIds(this);
+        // UniqueId.enableUniqueIds(this);
     }
-    @observable books = [
-        {
-            "id": this.nextUniqueId(),
-            "description": "Edgar Alan Po",
-            "deadline": "2019-09-11",
-            "done": true
-        }
-    ];
+    // @observable books = [
+    //     {
+    //         "id": this.nextUniqueId(),
+    //         "description": "Edgar Alan Po",
+    //         "deadline": "2019-09-11",
+    //         "done": true
+    //     }
+    // ];
     @observable todo = [];
 
     @observable elem = []
     //callback
     @observable posts = {
         data: [],
-        satatus: ['loading']
+        status: ['loading']
     }
 
-    @action addBook = (task) => {
-        this.todo.push(task + '' + this.nextUniqueId())
-        console.log(this.nextUniqueId())
-
-    }
+    // @action addBook = (task) => {
+    //     this.todo.push(task)
+   
+    // }
     @action deleteBook = (id) => {
 
         this.todo.forEach((todo, index) => {
@@ -52,11 +51,12 @@ class BooksStore extends React.Component {
         return this.todo.length;
     }
 
-    @action async addPosts() {
-        this.addPosts.data = [];
+    @action async showPosts() {
+        this.posts.data = [];
         this.posts.status = 'loading';
         try {
             const posts = await this.getPosts();
+            console.log(posts)
             runInAction(() => {
                 this.posts.data = posts;
                 this.posts.status = 'done';
@@ -65,27 +65,32 @@ class BooksStore extends React.Component {
             runInAction(() => {
                 this.posts.status = 'error)';
             })
+
         }
     }
 
-    // @action inputPosts(data) {
-    //     return fetch('https://jsonplaceholder.typicode.com/posts', {
-    //         method: 'POST',
-    //         body: JSON.stringify(data),
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8"
-    //         }
-    //     })
-    //         .then(response => response.json())
-    //         .then(json => {
-    //             this.posts.data.push(data)
-    //         })
-    // }
+    @action addPosts(data) {
+console.log(JSON.stringify(data))
+        return fetch('https://hyf-react-api.herokuapp.com/todos/create', {
+            method: 'POST',
+            body: JSON.stringify({ description: data, deadline: new Date() }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => response.json())
+            .then(json => {
+                runInAction(() => {
+                    this.posts.data.push(json)
+                })
+            })
+
+    }
 
     getPosts() {
 
         return fetch('https://hyf-react-api.herokuapp.com/todos')
             .then(response => response.json())
+
     }
 }
 

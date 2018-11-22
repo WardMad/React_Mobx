@@ -31,8 +31,6 @@ class Edit extends React.Component {
     }
     render() {
         const { BooksStore } = this.props;
-        // console.log(toJS(BooksStore.elem))
-
         // const editItems = BooksStore.elem.map((item, index) => (
         //     <div key={index}>
         //         {item}{index}
@@ -42,7 +40,7 @@ class Edit extends React.Component {
         return (
             <div>
                 {this.state.edit ? [<input type='text' placeholder={'type to update'}
-                    onChange={this.handleUpdate} />,
+                    defaultValue={this.props.value} onChange={this.props.changeEv} />,
                 <button className='edit' type="button" onClick={this.handleSave}> Save</button >,
                 <button className='edit' type="button" onClick={this.canCel} > Cancel</button >] : null}
                 <div>
