@@ -18,6 +18,7 @@ class TodoLists extends React.Component {
         //     ]
         // }
     }
+
     handleCheckbox = (e) => {
  this.props.BooksStore.changeBox(e.target.value)
     }

@@ -76,7 +76,8 @@ class App extends Component {
         
             /></div>
         ));
-console.log(listData)
+
+
         return (
             <div className="App">
                 <header className="App-header">
