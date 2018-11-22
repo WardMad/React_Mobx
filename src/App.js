@@ -4,7 +4,6 @@ import './App.css';
 import { inject, observer } from 'mobx-react'
 import Edit from './comonents/Edit';
 import TodoLists from './comonents/TodoLists'
-import UniqueId from 'react-html-id'
 
 
 @inject('BooksStore')
@@ -13,12 +12,8 @@ import UniqueId from 'react-html-id'
 class App extends Component {
     constructor(props) {
         super(props)
+ this.props.BooksStore.showPosts();
 
-        let x = this.props.BooksStore.showPosts();
-        let b = this.props.BooksStore.addPosts();
-
-        console.log(b)
-        UniqueId.enableUniqueIds(this);
     }
     handlAdd = (e) => {
         e.preventDefault()
@@ -78,10 +73,10 @@ class App extends Component {
                 deadline={item.deadline}
                 done={item.done}
                 changeEv={this.changeItem.bind(this, item.id)}
-            // change={this.changeItem.bind(this, item.id)}
+        
             /></div>
         ));
-
+console.log(listData)
         return (
             <div className="App">
                 <header className="App-header">

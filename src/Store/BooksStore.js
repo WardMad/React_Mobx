@@ -1,12 +1,9 @@
 import React from "react";
 import { observable, computed, action, runInAction } from 'mobx';
-import UniqueId from 'react-html-id'
+
 
 class BooksStore extends React.Component {
-    constructor() {
-        super()
-        // UniqueId.enableUniqueIds(this);
-    }
+
     // @observable books = [
     //     {
     //         "id": this.nextUniqueId(),

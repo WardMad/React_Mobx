@@ -30,7 +30,7 @@ class TodoLists extends React.Component {
         const remove = <button className='delete' onClick={this.handleDelete} >X</button>
         const checkbox = <input type='checkbox' onChange={this.handleCheckbox} />
         const { id, description, deadline, done, changeEv } = this.props;
-        console.log(id)
+        
         return (
 
             <div className='list'>
