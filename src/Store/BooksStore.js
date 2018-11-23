@@ -1,20 +1,17 @@
 import React from "react";
 import { observable, computed, action, runInAction } from 'mobx';
-import UniqueId from 'react-html-id'
+
 
 class BooksStore extends React.Component {
-    constructor() {
-        super()
-        UniqueId.enableUniqueIds(this);
-    }
-    @observable books = [
-        {
-            "id": this.nextUniqueId(),
-            "description": "Edgar Alan Po",
-            "deadline": "2019-09-11",
-            "done": true
-        }
-    ];
+
+    // @observable books = [
+    //     {
+    //         "id": this.nextUniqueId(),
+    //         "description": "Edgar Alan Po",
+    //         "deadline": "2019-09-11",
+    //         "done": true
+    //     }
+    // ];
     @observable todo = [];
 
     @observable elem = []
@@ -24,11 +21,10 @@ class BooksStore extends React.Component {
         status: ['loading']
     }
 
-    @action addBook = (task) => {
-        this.todo.push(task)
-        console.log(this.nextUniqueId())
+    // @action addBook = (task) => {
+    //     this.todo.push(task)
 
-    }
+    // }
     @action deleteBook = (id) => {
 
         this.todo.forEach((todo, index) => {
@@ -41,7 +37,7 @@ class BooksStore extends React.Component {
     }
 
     @action changeBox = () => {
-        this.books.forEach(todo => {
+        this.posts.data.forEach(todo => {
             if (todo.done === true) {
                 todo.done = !todo.done;
             }
@@ -52,7 +48,7 @@ class BooksStore extends React.Component {
         return this.todo.length;
     }
 
-    @action async addPosts() {
+    @action async showPosts() {
         this.posts.data = [];
         this.posts.status = 'loading';
         try {
@@ -64,13 +60,13 @@ class BooksStore extends React.Component {
             })
         } catch (error) {
             runInAction(() => {
-                this.posts.status = 'error)';
+                this.posts.status = 'error';
             })
 
         }
     }
 
-    @action inputPosts(data) {
+    @action addPosts(data) {
         console.log(data)
         return fetch('https://hyf-react-api.herokuapp.com/todos/create', {
             method: 'POST',
@@ -84,6 +80,26 @@ class BooksStore extends React.Component {
                     this.posts.data.push(json)
                 })
             })
+
+    }
+
+    @action deleteTask(task) {
+        console.log(task)
+        return fetch('https://hyf-react-api.herokuapp.com/todos/:todoId',
+            {
+                method: 'DELETE'
+
+            }).then(response => response.json())
+            .then(json => {
+                runInAction(() => {
+                    console.log(json)
+
+
+                    this.posts.data.splice(task, 1)
+
+                })
+            })
+
 
     }
 

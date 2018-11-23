@@ -4,7 +4,6 @@ import './App.css';
 import { inject, observer } from 'mobx-react'
 import Edit from './comonents/Edit';
 import TodoLists from './comonents/TodoLists'
-import UniqueId from 'react-html-id'
 
 
 @inject('BooksStore')
@@ -13,25 +12,15 @@ import UniqueId from 'react-html-id'
 class App extends Component {
     constructor(props) {
         super(props)
+        this.props.BooksStore.showPosts();
 
-        let x = this.props.BooksStore.addPosts();
-        let b = this.props.BooksStore.inputPosts();
-
-        console.log(b)
-        UniqueId.enableUniqueIds(this);
     }
     handlAdd = (e) => {
         e.preventDefault()
         let inputText = this.newTodo.value
-
-        this.props.BooksStore.inputPosts(inputText)
-        console.log(inputText)
+        this.props.BooksStore.addPosts(inputText)
 
         this.newTodo.value = ''   //es maqruma inputn
-    }
-
-    handleDelete = (e) => {
-        this.props.BooksStore.deleteBook()
     }
 
     handleCheckbox = (id) => {
@@ -40,37 +29,30 @@ class App extends Component {
     }
 
     changeItem = (id, e) => {
-        let index = this.props.BooksStore.books.findIndex((task) => {
+        let index = this.props.BooksStore.posts.data.findIndex((task) => {
             return task.id === id
 
         })
-        let indexOfTask = this.props.BooksStore.books[index]
-        // indexOfTask.description = e.target.value  //voncvor ba chi anum
+        let indexOfTask = this.props.BooksStore.posts.data[index]
+        indexOfTask.description = e.target.value  //voncvor ba chi anum
 
-        let descriptionItem = this.props.BooksStore.books
+        let descriptionItem = this.props.BooksStore.posts.data
         descriptionItem[index] = indexOfTask
-        this.props.BooksStore.books = descriptionItem
+        this.props.BooksStore.posts.data = descriptionItem
     }
     render() {
         const { BooksStore } = this.props;
-        const remove = <button className='delete' onClick={this.handleDelete} >X</button>
-        const checkBox = <input type='checkbox' onChange={this.handleCheckbox} />
+        // const remove = <button className='delete' onClick={this.handleDelete} >X</button>
+        // const checkBox = <input type='checkbox' onChange={this.handleCheckbox} />
 
-        // const addTodo = BooksStore.todo.map((item, index) => (
+        // // const addTodo = BooksStore.todo.map((item, index) => (
 
         //     <li key={index}>
         //         {checkBox}
-        //         <label>  {item}   </label> {remove} <Edit value={item} changeEv={this.changeItem} /></li>
+        //         <label>  {item} {remove} > </label>  <Edit value={item} changeEv={this.changeItem} /></li>
         // ));
 
-        // const getPosts = BooksStore.posts.data.map((item, index) => (
-        //     <li key={index} >
-        //         {checkBox}
-        //         <label >  {item.description} {item.deadline} {item.done} {remove} > </label>  <Edit /></li>
-
-        // ));
-
-        const listData = BooksStore.posts.data.map((item, index) => (
+        const listOfData = BooksStore.posts.data.map((item, index) => (
             <div key={index}>  <TodoLists
 
                 id={item.id}
@@ -78,9 +60,10 @@ class App extends Component {
                 deadline={item.deadline}
                 done={item.done}
                 changeEv={this.changeItem.bind(this, item.id)}
-            // change={this.changeItem.bind(this, item.id)}
+
             /></div>
         ));
+
 
         return (
             <div className="App">
@@ -97,8 +80,7 @@ class App extends Component {
                     <ul >
                         {/* {addTodo} */}
 
-                        {listData}
-                        {/* <mark>  HYF data {getPosts}</mark> */}
+                        {listOfData}
 
                     </ul>
 
