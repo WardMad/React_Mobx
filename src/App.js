@@ -56,12 +56,12 @@ class App extends Component {
         const remove = <button className='delete' onClick={this.handleDelete} >X</button>
         const checkBox = <input type='checkbox' onChange={this.handleCheckbox} />
 
-        const addTodo = BooksStore.todo.map((item, index) => (
+        // const addTodo = BooksStore.todo.map((item, index) => (
 
-            <li key={index}>
-                {checkBox}
-                <label>  {item} {remove} > </label>  <Edit value={item} changeEv={this.changeItem} /></li>
-        ));
+        //     <li key={index}>
+        //         {checkBox}
+        //         <label>  {item}   </label> {remove} <Edit value={item} changeEv={this.changeItem} /></li>
+        // ));
 
         // const getPosts = BooksStore.posts.data.map((item, index) => (
         //     <li key={index} >
@@ -95,7 +95,7 @@ class App extends Component {
                     </form>
 
                     <ul >
-                        {addTodo}
+                        {/* {addTodo} */}
 
                         {listData}
                         {/* <mark>  HYF data {getPosts}</mark> */}

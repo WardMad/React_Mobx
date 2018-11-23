@@ -71,7 +71,7 @@ class BooksStore extends React.Component {
     }
 
     @action inputPosts(data) {
-
+        console.log(data)
         return fetch('https://hyf-react-api.herokuapp.com/todos/create', {
             method: 'POST',
             body: JSON.stringify({ description: data, deadline: new Date() }),
